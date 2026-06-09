@@ -129,7 +129,7 @@ header {
 small {
   font-weight: 600;
 }
-@media (min-width: 600px) {
+@media (min-width: 650px) {
   .basket-total {
     top: -10px;
   }
@@ -224,6 +224,11 @@ small {
     font-size: 12px;
     display: flex;
     justify-content: space-around;
+  }
+}
+@media (min-width: 1200px) {
+  header {
+     padding-inline: 1.5rem;
   }
 }
 

@@ -30,6 +30,22 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  margin-top: -8px;
+  flex: 1;
+}
 li {
   list-style-type: none;
 }
@@ -44,9 +60,6 @@ a:hover {
 
 body {
  background: var(--Offwhite);
-}
-.container {
-  margin-top: -8px;
 }
 #rating {
   display: flex;

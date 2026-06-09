@@ -14,6 +14,8 @@ import menuRoute from './routes/menuRoute.js';
 import userRoute from './routes/userRoute.js';
 import orderRoute from './routes/orderRoute.js';
 import addressBookRoute from './routes/addressBookRoute.js'
+import paymentRoute from './routes/paymentRoute.js'
+
 
 globalThis.Buffer = Buffer;
 
@@ -35,9 +37,15 @@ app.use('/api/menu', menuRoute);
 app.use('/api/users', userRoute);
 app.use('/api/orders', orderRoute);
 app.use('/api/uploads', uploadRoute);
+app.use('/api/payment', paymentRoute)
 
 app.get('/api/config/paypal', (req, res) =>
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID })
+);
+
+
+app.get('/api/config/stripe', (req, res) =>
+  res.send({ publishableKey: process.env.VITE_STRIPE_PUBLISHABLE_KEY })
 );
 
 const __dirname = path.resolve(); // set __dirname to current directory

@@ -71,7 +71,7 @@ const Header = () => {
       <header>
         <div className='navigation'>
           <Link to='/' onClick={close}>
-            <h3 id='logo'>DESSERTS</h3>
+            <h2 id='logo'>DESSERTS</h2>
           </Link>
           <nav className={`nav ${openMenu ? 'active' : ''}`}>
             <li className={location.pathname === '/menu' ? 'active-page' : ''}>

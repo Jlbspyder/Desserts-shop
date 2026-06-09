@@ -1,12 +1,12 @@
-import { apiSlice } from './apiSlice';
-import { ORDERS_URL, PAYPAL_URL } from '../constants';
+import { apiSlice } from "./apiSlice";
+import { ORDERS_URL, PAYPAL_URL, STRIPE_URL } from "../constants";
 
 export const ordersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (order) => ({
         url: ORDERS_URL,
-        method: 'POST',
+        method: "POST",
         body: { ...order },
       }),
     }),
@@ -17,9 +17,9 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     payOrder: builder.mutation({
-      query: ({orderId, details}) => ({
+      query: ({ orderId, details }) => ({
         url: `${ORDERS_URL}/${orderId}/pay`,
-        method: 'PUT',
+        method: "PUT",
         body: { ...details },
       }),
     }),
@@ -29,27 +29,40 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: 5,
     }),
+    getStripePublishableKey: builder.query({
+      query: () => ({
+        url: STRIPE_URL,
+      }),
+      keepUnusedDataFor: 5,
+    }),
+    createPaymentIntent: builder.mutation({
+      query: (orderId) => ({
+        url: "/api/payment/create-payment-intent",
+        method: "POST",
+        body: { orderId },
+      }),
+    }),
     getMyOrders: builder.query({
       query: () => ({
-        url: `${ORDERS_URL}/myorders`
+        url: `${ORDERS_URL}/myorders`,
       }),
-      keepUnusedDataFor: 5
+      keepUnusedDataFor: 5,
     }),
     getOrders: builder.query({
-      query: ({pageNumber}) => ({
+      query: ({ pageNumber }) => ({
         url: ORDERS_URL,
         params: {
-          pageNumber
-        }
+          pageNumber,
+        },
       }),
-      keepUnusedDataFor: 5
+      keepUnusedDataFor: 5,
     }),
     deliveredOrder: builder.mutation({
       query: (orderId) => ({
         url: `${ORDERS_URL}/${orderId}/delivered`,
-        method: 'PUT'
-      })
-    })
+        method: "PUT",
+      }),
+    }),
   }),
 });
 
@@ -58,7 +71,9 @@ export const {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
+  useGetStripePublishableKeyQuery,
   useGetMyOrdersQuery,
   useGetOrdersQuery,
-  useDeliveredOrderMutation
+  useDeliveredOrderMutation,
+  useCreatePaymentIntentMutation,
 } = ordersApiSlice;
